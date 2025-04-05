@@ -1,4 +1,3 @@
-
 import React, { useState, useCallback, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -20,7 +19,6 @@ const Index = () => {
   const [progress, setProgress] = useState(0);
   const [recentFiles, setRecentFiles] = useState<Array<{ id: string; name: string; date: number; mode: string }>>([]);
 
-  // Load recent files on component mount
   useEffect(() => {
     setRecentFiles(getRecentFiles());
   }, []);
@@ -43,7 +41,7 @@ const Index = () => {
       size: file.size,
       type: file.type,
       status: 'pending' as const,
-      file: file // Keep the file reference for processing
+      file: file
     }));
     
     setFiles(prev => [...prev, ...newFiles]);
@@ -77,22 +75,18 @@ const Index = () => {
       const fileItem = files[i];
       const file = fileItem.file as File;
       
-      // Update status to processing
       setFiles(prev => prev.map(f => 
         f.id === fileItem.id ? { ...f, status: 'processing' as const } : f
       ));
 
       try {
-        // Process the file (encrypt or decrypt)
         const result = mode === 'encrypt' 
           ? await encryptFile(file, password, setProgress)
           : await decryptFile(file, password, setProgress);
         
         if (result.success && result.data) {
-          // Save the processed file
           await saveFile(result, file, mode);
           
-          // Update file status and save to recent files
           setFiles(prev => prev.map(f => 
             f.id === fileItem.id ? { ...f, status: 'completed' as const } : f
           ));
@@ -104,7 +98,6 @@ const Index = () => {
             mode
           });
           
-          // Update recent files list
           setRecentFiles(getRecentFiles());
           
           toast({
@@ -112,7 +105,6 @@ const Index = () => {
             description: `"${file.name}" has been ${mode}ed and saved.`,
           });
         } else {
-          // Handle error
           setFiles(prev => prev.map(f => 
             f.id === fileItem.id ? { 
               ...f, 

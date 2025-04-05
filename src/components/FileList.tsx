@@ -12,6 +12,7 @@ export interface FileItem {
   type: string;
   status: FileStatus;
   error?: string;
+  file?: File; // Added this property to store the original File object
 }
 
 interface FileListProps {
