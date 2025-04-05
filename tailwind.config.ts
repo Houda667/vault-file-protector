@@ -21,16 +21,16 @@ export default {
 		extend: {
 			colors: {
 				vault: {
-					bg: "#ffffff",
-					card: "#f8fafc",
-					accent: "#3b82f6",
-					primary: "#2563eb",
-					secondary: "#e2e8f0",
-					success: "#10b981",
-					warning: "#f59e0b",
-					danger: "#ef4444",
-					text: "#1e293b",
-					"text-muted": "#64748b"
+					bg: "#f8fafc",  // Light background
+					card: "#ffffff", // White card background
+					accent: "#3b82f6", // Blue accent
+					primary: "#2563eb", // Primary blue
+					secondary: "#e2e8f0", // Light gray secondary
+					success: "#10b981", // Green success
+					warning: "#f59e0b", // Orange warning
+					danger: "#ef4444",  // Red danger
+					text: "#1e293b",    // Dark text
+					"text-muted": "#64748b" // Muted text
 				},
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
@@ -104,16 +104,28 @@ export default {
 				},
 				'spin-slow': {
 					'to': { transform: 'rotate(360deg)' }
+				},
+				'float': {
+					'0%, 100%': { transform: 'translateY(0)' },
+					'50%': { transform: 'translateY(-10px)' }
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
 				'pulse-slow': 'pulse-slow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-				'spin-slow': 'spin-slow 3s linear infinite'
+				'spin-slow': 'spin-slow 3s linear infinite',
+				'float': 'float 6s ease-in-out infinite'
 			},
 			backgroundImage: {
-				'gradient-vault': 'linear-gradient(135deg, #60a5fa 0%, #2563eb 100%)'
+				'gradient-vault': 'linear-gradient(135deg, #60a5fa 0%, #2563eb 100%)',
+				'gradient-soft': 'linear-gradient(to right, #accbee 0%, #e7f0fd 100%)',
+				'gradient-blue': 'linear-gradient(90deg, hsla(221, 45%, 73%, 1) 0%, hsla(220, 78%, 29%, 1) 100%)',
+				'gradient-card': 'linear-gradient(109.6deg, rgba(223,234,247,1) 11.2%, rgba(244,248,252,1) 91.1%)'
+			},
+			boxShadow: {
+				'soft': '0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01)',
+				'card': '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)'
 			}
 		}
 	},
