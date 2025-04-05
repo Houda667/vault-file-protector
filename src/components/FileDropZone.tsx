@@ -50,7 +50,7 @@ const FileDropZone: React.FC<FileDropZoneProps> = ({ onFileSelect, mode }) => {
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
       className={cn(
-        "flex flex-col items-center justify-center border-2 border-vault-card rounded-lg p-10 transition-all cursor-pointer bg-vault-card/30",
+        "flex flex-col items-center justify-center border-2 border-gray-200 rounded-lg p-10 transition-all cursor-pointer bg-white shadow-sm hover:shadow-md",
         isDragActive && "file-drop-active"
       )}
     >

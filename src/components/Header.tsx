@@ -4,7 +4,7 @@ import { Shield, Lock } from 'lucide-react';
 
 const Header = () => {
   return (
-    <div className="flex items-center justify-between px-6 py-4 bg-vault-card/40 border-b border-vault-card">
+    <div className="flex items-center justify-between px-6 py-4 bg-white border-b border-gray-100 shadow-sm">
       <div className="flex items-center space-x-3">
         <div className="rounded-full bg-gradient-vault p-2 text-white">
           <Shield size={24} />

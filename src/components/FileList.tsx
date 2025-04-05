@@ -39,17 +39,17 @@ const FileList: React.FC<FileListProps> = ({ files, onRemove, mode }) => {
 
   const getFileIcon = (fileType: string) => {
     if (fileType.startsWith('image/')) {
-      return <File className="text-blue-400" />;
+      return <File className="text-blue-500" />;
     } else if (fileType.startsWith('video/')) {
-      return <File className="text-purple-400" />;
+      return <File className="text-purple-500" />;
     } else if (fileType.startsWith('audio/')) {
-      return <File className="text-green-400" />;
+      return <File className="text-green-500" />;
     } else if (fileType.includes('pdf')) {
-      return <File className="text-red-400" />;
+      return <File className="text-red-500" />;
     } else if (fileType.includes('document') || fileType.includes('sheet') || fileType.includes('presentation')) {
-      return <FileText className="text-yellow-400" />;
+      return <FileText className="text-yellow-500" />;
     } else {
-      return <File className="text-vault-text-muted" />;
+      return <File className="text-gray-500" />;
     }
   };
 
@@ -58,33 +58,33 @@ const FileList: React.FC<FileListProps> = ({ files, onRemove, mode }) => {
       case 'processing':
         return <Badge variant="secondary" className="animate-pulse">Traitement...</Badge>;
       case 'completed':
-        return <Badge variant="default" className="bg-vault-success text-white">Terminé</Badge>;
+        return <Badge variant="default" className="bg-green-500 text-white">Terminé</Badge>;
       case 'error':
         return <Badge variant="destructive">Erreur</Badge>;
       default:
         return mode === 'encrypt' 
-          ? <Badge variant="outline" className="border-vault-accent text-vault-accent">Prêt à chiffrer</Badge> 
-          : <Badge variant="outline" className="border-vault-accent text-vault-accent">Prêt à déchiffrer</Badge>;
+          ? <Badge variant="outline" className="border-blue-500 text-blue-500">Prêt à chiffrer</Badge> 
+          : <Badge variant="outline" className="border-blue-500 text-blue-500">Prêt à déchiffrer</Badge>;
     }
   };
 
   const getStatusIcon = (status: FileStatus) => {
     switch (status) {
       case 'processing':
-        return <div className="w-5 h-5 rounded-full border-2 border-t-transparent border-vault-accent animate-spin" />;
+        return <div className="w-5 h-5 rounded-full border-2 border-t-transparent border-blue-500 animate-spin" />;
       case 'completed':
-        return <Check size={18} className="text-vault-success" />;
+        return <Check size={18} className="text-green-500" />;
       case 'error':
-        return <AlertCircle size={18} className="text-vault-danger" />;
+        return <AlertCircle size={18} className="text-red-500" />;
       default:
-        return mode === 'encrypt' ? <Lock size={18} className="text-vault-accent" /> : <Unlock size={18} className="text-vault-accent" />;
+        return mode === 'encrypt' ? <Lock size={18} className="text-blue-500" /> : <Unlock size={18} className="text-blue-500" />;
     }
   };
 
   return (
     <div className="space-y-3 w-full">
       <div className="flex justify-between items-center">
-        <h3 className="text-sm font-medium text-vault-text">
+        <h3 className="text-sm font-medium text-gray-700">
           {files.length} fichier{files.length !== 1 ? 's' : ''} sélectionné{files.length !== 1 ? 's' : ''}
         </h3>
       </div>
@@ -94,21 +94,21 @@ const FileList: React.FC<FileListProps> = ({ files, onRemove, mode }) => {
           <TooltipProvider key={file.id}>
             <div 
               className={cn(
-                "group flex items-center justify-between p-4 rounded-lg bg-vault-card/50 border hover:bg-vault-card/70 transition-all",
+                "group flex items-center justify-between p-4 rounded-lg bg-white border card-shadow hover:shadow-md transition-all",
                 file.status === 'error' 
-                  ? "bg-vault-danger/10 border-vault-danger/30 hover:bg-vault-danger/20" 
-                  : "border-vault-card hover:border-vault-accent/30",
-                file.status === 'completed' && "bg-vault-success/5 border-vault-success/20"
+                  ? "bg-red-50 border-red-200" 
+                  : "border-gray-100",
+                file.status === 'completed' && "bg-green-50 border-green-100"
               )}
             >
               <div className="flex items-center space-x-4 overflow-hidden flex-1">
-                <div className="flex-shrink-0 w-10 h-10 rounded-md bg-vault-card/80 flex items-center justify-center">
+                <div className="flex-shrink-0 w-10 h-10 rounded-md bg-gray-50 flex items-center justify-center">
                   {getFileIcon(file.type)}
                 </div>
                 
                 <div className="overflow-hidden flex-1">
                   <div className="flex items-center justify-between">
-                    <p className="text-sm font-medium text-vault-text truncate max-w-[180px] sm:max-w-xs">
+                    <p className="text-sm font-medium text-gray-800 truncate max-w-[180px] sm:max-w-xs">
                       {file.name}
                     </p>
                     <div className="ml-2">
@@ -116,12 +116,12 @@ const FileList: React.FC<FileListProps> = ({ files, onRemove, mode }) => {
                     </div>
                   </div>
                   
-                  <div className="flex items-center text-xs text-vault-text-muted mt-1">
+                  <div className="flex items-center text-xs text-gray-500 mt-1">
                     <span>{formatFileSize(file.size)}</span>
                   </div>
                   
                   {file.status === 'error' && (
-                    <p className="text-xs text-vault-danger mt-1">{file.error || 'Erreur lors du traitement du fichier'}</p>
+                    <p className="text-xs text-red-500 mt-1">{file.error || 'Erreur lors du traitement du fichier'}</p>
                   )}
                 </div>
               </div>
@@ -136,7 +136,7 @@ const FileList: React.FC<FileListProps> = ({ files, onRemove, mode }) => {
                     <TooltipTrigger asChild>
                       <button 
                         onClick={() => onRemove(file.id)}
-                        className="text-vault-text-muted hover:text-vault-danger p-1.5 rounded-full opacity-60 hover:opacity-100 hover:bg-vault-danger/10 transition-all"
+                        className="text-gray-400 hover:text-red-500 p-1.5 rounded-full hover:bg-red-50 transition-all"
                         aria-label="Supprimer le fichier"
                       >
                         <X size={18} />

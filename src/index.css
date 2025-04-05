@@ -16,7 +16,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 222.2 47.4% 11.2%;
+    --primary: 221.2 83% 53.3%;
     --primary-foreground: 210 40% 98%;
 
     --secondary: 210 40% 96.1%;
@@ -33,24 +33,17 @@
 
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --ring: 221.2 83% 53.3%;
 
     --radius: 0.5rem;
 
     --sidebar-background: 0 0% 98%;
-
     --sidebar-foreground: 240 5.3% 26.1%;
-
     --sidebar-primary: 240 5.9% 10%;
-
     --sidebar-primary-foreground: 0 0% 98%;
-
     --sidebar-accent: 240 4.8% 95.9%;
-
     --sidebar-accent-foreground: 240 5.9% 10%;
-
     --sidebar-border: 220 13% 91%;
-
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
@@ -99,22 +92,45 @@
   }
 
   body {
-    @apply bg-vault-bg text-vault-text font-['Inter',sans-serif];
+    @apply bg-white text-gray-800 font-['Inter',sans-serif];
   }
 }
 
 .file-drop-active {
-  @apply border-vault-accent border-dashed bg-vault-card/50;
+  @apply border-blue-400 border-dashed bg-blue-50;
 }
 
 .password-strength-weak {
-  @apply bg-vault-danger h-1 rounded transition-all;
+  @apply bg-red-500 h-1 rounded transition-all;
 }
 
 .password-strength-medium {
-  @apply bg-vault-warning h-1 rounded transition-all;
+  @apply bg-yellow-500 h-1 rounded transition-all;
 }
 
 .password-strength-strong {
-  @apply bg-vault-success h-1 rounded transition-all;
+  @apply bg-green-500 h-1 rounded transition-all;
+}
+
+/* Customized scrollbar for light theme */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #a1a1a1;
+}
+
+.card-shadow {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }

@@ -21,16 +21,16 @@ export default {
 		extend: {
 			colors: {
 				vault: {
-					bg: "#0f172a",
-					card: "#1e293b",
-					accent: "#0ED2F7",
+					bg: "#ffffff",
+					card: "#f8fafc",
+					accent: "#3b82f6",
 					primary: "#2563eb",
-					secondary: "#094067",
+					secondary: "#e2e8f0",
 					success: "#10b981",
 					warning: "#f59e0b",
 					danger: "#ef4444",
-					text: "#f8fafc",
-					"text-muted": "#94a3b8"
+					text: "#1e293b",
+					"text-muted": "#64748b"
 				},
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
@@ -113,7 +113,7 @@ export default {
 				'spin-slow': 'spin-slow 3s linear infinite'
 			},
 			backgroundImage: {
-				'gradient-vault': 'linear-gradient(135deg, #0ED2F7 0%, #094067 100%)'
+				'gradient-vault': 'linear-gradient(135deg, #60a5fa 0%, #2563eb 100%)'
 			}
 		}
 	},
