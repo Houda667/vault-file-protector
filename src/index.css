@@ -1,3 +1,6 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -96,6 +99,22 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-vault-bg text-vault-text font-['Inter',sans-serif];
   }
+}
+
+.file-drop-active {
+  @apply border-vault-accent border-dashed bg-vault-card/50;
+}
+
+.password-strength-weak {
+  @apply bg-vault-danger h-1 rounded transition-all;
+}
+
+.password-strength-medium {
+  @apply bg-vault-warning h-1 rounded transition-all;
+}
+
+.password-strength-strong {
+  @apply bg-vault-success h-1 rounded transition-all;
 }

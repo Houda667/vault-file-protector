@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -19,6 +20,18 @@ export default {
 		},
 		extend: {
 			colors: {
+				vault: {
+					bg: "#0f172a",
+					card: "#1e293b",
+					accent: "#0ED2F7",
+					primary: "#2563eb",
+					secondary: "#094067",
+					success: "#10b981",
+					warning: "#f59e0b",
+					danger: "#ef4444",
+					text: "#f8fafc",
+					"text-muted": "#94a3b8"
+				},
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
 				ring: 'hsl(var(--ring))',
@@ -84,11 +97,23 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				'pulse-slow': {
+					'0%, 100%': { opacity: '1' },
+					'50%': { opacity: '0.5' }
+				},
+				'spin-slow': {
+					'to': { transform: 'rotate(360deg)' }
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'pulse-slow': 'pulse-slow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+				'spin-slow': 'spin-slow 3s linear infinite'
+			},
+			backgroundImage: {
+				'gradient-vault': 'linear-gradient(135deg, #0ED2F7 0%, #094067 100%)'
 			}
 		}
 	},
