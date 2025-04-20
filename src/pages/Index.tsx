@@ -1,3 +1,4 @@
+
 import React, { useState, useCallback, useEffect } from 'react';
 import { toast } from '@/components/ui/use-toast';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -203,25 +204,25 @@ const Index = () => {
               <div className="p-6">
                 <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
                   <div className="md:col-span-3 space-y-6">
-                    <Tabs value={activeTab}>
-                      <TabsContent value="encrypt">
-                        <EncryptTabContent
-                          files={files}
-                          onRemove={handleRemoveFile}
-                          isProcessing={isProcessing}
-                          progress={progress}
-                        />
-                      </TabsContent>
-                      
-                      <TabsContent value="decrypt">
-                        <DecryptTabContent
-                          files={files}
-                          onRemove={handleRemoveFile}
-                          isProcessing={isProcessing}
-                          progress={progress}
-                        />
-                      </TabsContent>
-                    </Tabs>
+                    <TabsContent value="encrypt">
+                      <EncryptTabContent
+                        files={files}
+                        onRemove={handleRemoveFile}
+                        isProcessing={isProcessing}
+                        progress={progress}
+                        onFileSelect={handleFileSelect}
+                      />
+                    </TabsContent>
+                    
+                    <TabsContent value="decrypt">
+                      <DecryptTabContent
+                        files={files}
+                        onRemove={handleRemoveFile}
+                        isProcessing={isProcessing}
+                        progress={progress}
+                        onFileSelect={handleFileSelect}
+                      />
+                    </TabsContent>
                   </div>
                   
                   <div className="md:col-span-2 space-y-6">

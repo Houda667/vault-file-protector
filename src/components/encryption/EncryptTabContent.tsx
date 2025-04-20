@@ -9,6 +9,7 @@ interface EncryptTabContentProps {
   onRemove: (id: string) => void;
   isProcessing: boolean;
   progress: number;
+  onFileSelect: (files: File[]) => void;
 }
 
 const EncryptTabContent: React.FC<EncryptTabContentProps> = ({
@@ -16,10 +17,11 @@ const EncryptTabContent: React.FC<EncryptTabContentProps> = ({
   onRemove,
   isProcessing,
   progress,
+  onFileSelect,
 }) => {
   return (
     <div className="space-y-6 mt-0">
-      <FileDropZone onFileSelect={handleFileSelect} mode="encrypt" />
+      <FileDropZone onFileSelect={onFileSelect} mode="encrypt" />
       {files.length > 0 && <FileList files={files} onRemove={onRemove} mode="encrypt" />}
       <EncryptionProgress isProcessing={isProcessing} progress={progress} mode="encrypt" />
     </div>
