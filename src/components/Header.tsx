@@ -1,68 +1,27 @@
 
 import React from 'react';
-import { Shield, Lock, Info, Settings } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { Shield, Sparkles } from 'lucide-react';
 
 const Header = () => {
   return (
-    <div className="bg-white shadow-md border-b border-gray-100">
-      <div className="container mx-auto px-6 py-5">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-4">
-            <div className="bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl p-3 text-white shadow-lg transform transition-all hover:scale-105">
-              <Shield size={28} />
-            </div>
-            <div>
-              <h1 className="text-2xl font-bold text-gray-800 flex items-center">
-                Vault <span className="text-blue-600 mx-1.5">File</span> Protector
-                <Lock className="ml-2 text-blue-600" size={18} />
-              </h1>
-              <p className="text-gray-600 text-sm mt-0.5">Sécurisation et chiffrement de fichiers simple et efficace</p>
+    <div className="w-full bg-gradient-to-b from-white to-purple-50 py-16 text-center">
+      <div className="container mx-auto px-4">
+        <div className="flex flex-col items-center justify-center space-y-6 animate-fade-in">
+          <div className="relative">
+            <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 to-blue-500 rounded-full blur opacity-30 group-hover:opacity-50 transition duration-1000 animate-pulse"></div>
+            <div className="relative bg-gradient-to-br from-purple-500 to-indigo-600 p-4 rounded-2xl shadow-xl transform hover:scale-105 transition-all duration-300">
+              <Shield size={32} className="text-white" />
+              <Sparkles className="absolute -top-2 -right-2 text-yellow-300 animate-pulse" size={16} />
             </div>
           </div>
           
-          <div className="flex items-center space-x-3">
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button variant="outline" size="sm" className="hidden md:flex items-center space-x-2">
-                    <span className="h-2 w-2 rounded-full bg-green-400"></span>
-                    <span className="text-sm text-gray-600">Connexion sécurisée</span>
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>Votre connexion est cryptée et sécurisée</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button variant="ghost" size="icon" className="text-gray-500 hover:text-blue-600">
-                    <Info size={20} />
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>Aide et information</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button variant="ghost" size="icon" className="text-gray-500 hover:text-blue-600">
-                    <Settings size={20} />
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>Paramètres</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-          </div>
+          <h1 className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-blue-600">
+            Secret File Keeper
+          </h1>
+          
+          <p className="max-w-2xl text-gray-600 text-lg">
+            Un outil de chiffrement de fichiers sécurisé qui protège vos données confidentielles avec un chiffrement conforme aux normes de l'industrie. Toutes les opérations sont exécutées dans le cloud de manière sécurisée.
+          </p>
         </div>
       </div>
     </div>

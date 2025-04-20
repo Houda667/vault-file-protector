@@ -1,9 +1,7 @@
-
 import React, { useState, useCallback } from 'react';
-import { Upload, File as FileIcon, Shield, PlusCircle, ImageIcon, FileText, FileCog } from 'lucide-react';
+import { Upload, Shield, PlusCircle, ImageIcon, FileText, FileCog } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
 interface FileDropZoneProps {
   onFileSelect: (files: File[]) => void;
@@ -46,29 +44,25 @@ const FileDropZone: React.FC<FileDropZoneProps> = ({ onFileSelect, mode }) => {
     [onFileSelect]
   );
 
-  const getIconBasedOnMode = () => {
-    if (mode === 'encrypt') {
-      return <Shield size={30} />;
-    } else {
-      return <FileCog size={30} />;
-    }
-  };
-
   return (
     <div
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
       className={cn(
-        "flex flex-col items-center justify-center border-2 border-dashed rounded-xl p-10 transition-all cursor-pointer bg-white",
+        "relative overflow-hidden rounded-2xl transition-all duration-300",
+        "bg-gradient-to-br from-white to-purple-50 p-8",
+        "border-2 border-dashed group",
         isDragActive 
-          ? "shadow-lg border-blue-500 bg-blue-50" 
-          : "shadow-md border-gray-200 hover:border-blue-400 hover:shadow-lg",
+          ? "border-purple-400 bg-purple-50 shadow-lg scale-102" 
+          : "border-gray-200 hover:border-purple-300",
         mode === 'encrypt' 
-          ? "hover:bg-blue-50" 
-          : "hover:bg-green-50"
+          ? "hover:bg-purple-50/50" 
+          : "hover:bg-blue-50/50"
       )}
     >
+      <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+      
       <input
         type="file"
         multiple
@@ -76,68 +70,56 @@ const FileDropZone: React.FC<FileDropZoneProps> = ({ onFileSelect, mode }) => {
         className="hidden"
         id="file-upload"
       />
-      <label htmlFor="file-upload" className="w-full h-full cursor-pointer">
-        <div className="flex flex-col items-center">
+      
+      <label htmlFor="file-upload" className="w-full h-full cursor-pointer relative z-10">
+        <div className="flex flex-col items-center space-y-6">
           <div className={cn(
-            "p-4 mb-5 rounded-full shadow-lg text-white animate-float",
+            "p-6 rounded-full shadow-lg text-white transform transition-all duration-500 group-hover:scale-110",
             mode === 'encrypt' 
-              ? "bg-gradient-to-br from-blue-500 to-indigo-600" 
-              : "bg-gradient-to-br from-green-400 to-emerald-600"
+              ? "bg-gradient-to-br from-purple-500 to-indigo-600" 
+              : "bg-gradient-to-br from-blue-500 to-cyan-600"
           )}>
-            {getIconBasedOnMode()}
+            {mode === 'encrypt' ? <Shield size={40} /> : <FileCog size={40} />}
           </div>
           
-          <div className="text-center">
-            <p className="mb-3 text-xl font-semibold text-gray-800">
+          <div className="text-center space-y-4">
+            <h3 className="text-2xl font-semibold text-gray-800">
               {isDragActive
                 ? "Déposez les fichiers ici"
                 : mode === 'encrypt'
-                  ? "Glissez-déposez les fichiers à chiffrer"
-                  : "Glissez-déposez les fichiers à déchiffrer"
+                  ? "Chiffrer un fichier"
+                  : "Déchiffrer un fichier"
               }
+            </h3>
+            
+            <p className="text-gray-600">
+              {mode === 'encrypt' 
+                ? "Protégez vos fichiers confidentiels avec un mot de passe fort" 
+                : "Sélectionnez un fichier à déchiffrer"}
             </p>
             
-            <div className="flex items-center justify-center space-x-4">
-              <div className="flex items-center space-x-2 text-gray-500">
-                <FileText size={16} />
+            <div className="flex items-center justify-center gap-6 text-gray-500">
+              <div className="flex items-center gap-2 text-sm">
+                <FileText size={18} />
                 <span>Documents</span>
               </div>
-              <div className="flex items-center space-x-2 text-gray-500">
-                <ImageIcon size={16} />
+              <div className="flex items-center gap-2 text-sm">
+                <ImageIcon size={18} />
                 <span>Images</span>
-              </div>
-              <div className="flex items-center space-x-2 text-gray-500">
-                <FileIcon size={16} />
-                <span>Autres</span>
               </div>
             </div>
             
-            <div className="mt-6">
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Button 
-                      className={cn(
-                        "rounded-full mt-2",
-                        mode === 'encrypt' 
-                          ? "bg-blue-600 hover:bg-blue-700" 
-                          : "bg-green-600 hover:bg-green-700"
-                      )}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        document.getElementById('file-upload')?.click();
-                      }}
-                    >
-                      <PlusCircle className="mr-2 h-4 w-4" />
-                      Sélectionner des fichiers
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>Cliquez pour parcourir vos fichiers</p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-            </div>
+            <Button 
+              className={cn(
+                "mt-4 transform transition-all duration-300 hover:scale-105",
+                mode === 'encrypt' 
+                  ? "bg-purple-600 hover:bg-purple-700" 
+                  : "bg-blue-600 hover:bg-blue-700"
+              )}
+            >
+              <PlusCircle className="mr-2 h-4 w-4" />
+              Sélectionner des fichiers
+            </Button>
           </div>
         </div>
       </label>
