@@ -222,115 +222,115 @@ const Index = () => {
                   Déchiffrer
                 </TabsTrigger>
               </TabsList>
+            
+              <div className="p-6">
+                <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
+                  <div className="md:col-span-3 space-y-6">
+                    <TabsContent value="encrypt" className="space-y-6 mt-0">
+                      <FileDropZone onFileSelect={handleFileSelect} mode="encrypt" />
+                      {files.length > 0 && <FileList files={files} onRemove={handleRemoveFile} mode="encrypt" />}
+                      <EncryptionProgress isProcessing={isProcessing} progress={progress} mode="encrypt" />
+                    </TabsContent>
+                    
+                    <TabsContent value="decrypt" className="space-y-6 mt-0">
+                      <FileDropZone onFileSelect={handleFileSelect} mode="decrypt" />
+                      {files.length > 0 && <FileList files={files} onRemove={handleRemoveFile} mode="decrypt" />}
+                      <EncryptionProgress isProcessing={isProcessing} progress={progress} mode="decrypt" />
+                    </TabsContent>
+                  </div>
+                  
+                  <div className="md:col-span-2 space-y-6">
+                    <Card className="border shadow-sm">
+                      <CardHeader className="pb-2">
+                        <CardTitle className="text-base flex items-center">
+                          {activeTab === 'encrypt' 
+                            ? <ShieldCheck className="mr-2 h-4 w-4 text-blue-600" /> 
+                            : <FileQuestion className="mr-2 h-4 w-4 text-green-600" />
+                          }
+                          {activeTab === 'encrypt' ? 'Paramètres de chiffrement' : 'Paramètres de déchiffrement'}
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent className="pt-0">
+                        <PasswordInput 
+                          onChange={handlePasswordChange} 
+                          mode={activeTab as 'encrypt' | 'decrypt'} 
+                        />
+                        
+                        <Button 
+                          onClick={processFiles}
+                          disabled={!files.length || !password || isProcessing}
+                          className={`w-full mt-6 ${activeTab === 'encrypt' 
+                            ? 'bg-blue-600 hover:bg-blue-700' 
+                            : 'bg-green-600 hover:bg-green-700'
+                          } transition-colors`}
+                        >
+                          {activeTab === 'encrypt' ? (
+                            <>
+                              <Lock className="mr-2 h-4 w-4" />
+                              Chiffrer les fichiers
+                            </>
+                          ) : (
+                            <>
+                              <Unlock className="mr-2 h-4 w-4" />
+                              Déchiffrer les fichiers
+                            </>
+                          )}
+                        </Button>
+                      </CardContent>
+                    </Card>
+                    
+                    {recentFiles.length > 0 && (
+                      <Card className="border shadow-sm">
+                        <CardHeader className="pb-2">
+                          <div className="flex items-center justify-between">
+                            <CardTitle className="text-base flex items-center">
+                              <Clock className="mr-2 h-4 w-4 text-gray-600" />
+                              Fichiers récents
+                            </CardTitle>
+                            <Button 
+                              variant="ghost" 
+                              size="sm" 
+                              onClick={clearRecentFiles}
+                              className="h-8 px-2 text-xs text-gray-500 hover:text-red-600"
+                            >
+                              <Trash2 className="mr-1 h-3 w-3" />
+                              Effacer
+                            </Button>
+                          </div>
+                        </CardHeader>
+                        
+                        <CardContent className="pt-0">
+                          <div className="space-y-2 max-h-48 overflow-y-auto pr-1 custom-scrollbar">
+                            {recentFiles.map((file) => (
+                              <div key={file.id} className="flex items-center justify-between p-2 text-sm bg-gray-50 hover:bg-gray-100 rounded-md transition-colors">
+                                <div className="flex items-center overflow-hidden">
+                                  {file.mode === 'encrypt' ? (
+                                    <Badge variant="outline" className="bg-blue-50 text-blue-700 border-blue-200 mr-2">
+                                      <Lock className="mr-1 h-3 w-3" />
+                                      Chiffré
+                                    </Badge>
+                                  ) : (
+                                    <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200 mr-2">
+                                      <FileCheck className="mr-1 h-3 w-3" />
+                                      Déchiffré
+                                    </Badge>
+                                  )}
+                                  <span className="truncate max-w-[120px]">{file.name}</span>
+                                </div>
+                                <span className="text-xs text-gray-500 whitespace-nowrap">
+                                  {formatDate(file.date)}
+                                </span>
+                              </div>
+                            ))}
+                          </div>
+                        </CardContent>
+                      </Card>
+                    )}
+                  </div>
+                </div>
+              </div>
             </Tabs>
           </CardHeader>
-          
-          <CardContent className="p-6">
-            <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
-              <div className="md:col-span-3 space-y-6">
-                <TabsContent value="encrypt" className="space-y-6 mt-0">
-                  <FileDropZone onFileSelect={handleFileSelect} mode="encrypt" />
-                  {files.length > 0 && <FileList files={files} onRemove={handleRemoveFile} mode="encrypt" />}
-                  <EncryptionProgress isProcessing={isProcessing} progress={progress} mode="encrypt" />
-                </TabsContent>
-                
-                <TabsContent value="decrypt" className="space-y-6 mt-0">
-                  <FileDropZone onFileSelect={handleFileSelect} mode="decrypt" />
-                  {files.length > 0 && <FileList files={files} onRemove={handleRemoveFile} mode="decrypt" />}
-                  <EncryptionProgress isProcessing={isProcessing} progress={progress} mode="decrypt" />
-                </TabsContent>
-              </div>
-              
-              <div className="md:col-span-2 space-y-6">
-                <Card className="border shadow-sm">
-                  <CardHeader className="pb-2">
-                    <CardTitle className="text-base flex items-center">
-                      {activeTab === 'encrypt' 
-                        ? <ShieldCheck className="mr-2 h-4 w-4 text-blue-600" /> 
-                        : <FileQuestion className="mr-2 h-4 w-4 text-green-600" />
-                      }
-                      {activeTab === 'encrypt' ? 'Paramètres de chiffrement' : 'Paramètres de déchiffrement'}
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="pt-0">
-                    <PasswordInput 
-                      onChange={handlePasswordChange} 
-                      mode={activeTab as 'encrypt' | 'decrypt'} 
-                    />
-                    
-                    <Button 
-                      onClick={processFiles}
-                      disabled={!files.length || !password || isProcessing}
-                      className={`w-full mt-6 ${activeTab === 'encrypt' 
-                        ? 'bg-blue-600 hover:bg-blue-700' 
-                        : 'bg-green-600 hover:bg-green-700'
-                      } transition-colors`}
-                    >
-                      {activeTab === 'encrypt' ? (
-                        <>
-                          <Lock className="mr-2 h-4 w-4" />
-                          Chiffrer les fichiers
-                        </>
-                      ) : (
-                        <>
-                          <Unlock className="mr-2 h-4 w-4" />
-                          Déchiffrer les fichiers
-                        </>
-                      )}
-                    </Button>
-                  </CardContent>
-                </Card>
-                
-                {recentFiles.length > 0 && (
-                  <Card className="border shadow-sm">
-                    <CardHeader className="pb-2">
-                      <div className="flex items-center justify-between">
-                        <CardTitle className="text-base flex items-center">
-                          <Clock className="mr-2 h-4 w-4 text-gray-600" />
-                          Fichiers récents
-                        </CardTitle>
-                        <Button 
-                          variant="ghost" 
-                          size="sm" 
-                          onClick={clearRecentFiles}
-                          className="h-8 px-2 text-xs text-gray-500 hover:text-red-600"
-                        >
-                          <Trash2 className="mr-1 h-3 w-3" />
-                          Effacer
-                        </Button>
-                      </div>
-                    </CardHeader>
-                    
-                    <CardContent className="pt-0">
-                      <div className="space-y-2 max-h-48 overflow-y-auto pr-1 custom-scrollbar">
-                        {recentFiles.map((file) => (
-                          <div key={file.id} className="flex items-center justify-between p-2 text-sm bg-gray-50 hover:bg-gray-100 rounded-md transition-colors">
-                            <div className="flex items-center overflow-hidden">
-                              {file.mode === 'encrypt' ? (
-                                <Badge variant="outline" className="bg-blue-50 text-blue-700 border-blue-200 mr-2">
-                                  <Lock className="mr-1 h-3 w-3" />
-                                  Chiffré
-                                </Badge>
-                              ) : (
-                                <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200 mr-2">
-                                  <FileCheck className="mr-1 h-3 w-3" />
-                                  Déchiffré
-                                </Badge>
-                              )}
-                              <span className="truncate max-w-[120px]">{file.name}</span>
-                            </div>
-                            <span className="text-xs text-gray-500 whitespace-nowrap">
-                              {formatDate(file.date)}
-                            </span>
-                          </div>
-                        ))}
-                      </div>
-                    </CardContent>
-                  </Card>
-                )}
-              </div>
-            </div>
-          </CardContent>
         </Card>
       </div>
     </div>
